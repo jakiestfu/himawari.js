@@ -1,0 +1,16 @@
+{
+  "name": "himawari",
+  "version": "1.0.0",
+  "description": "Download images from the Himawari-8 satellite",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Jacob Kelley <jakie8@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^1.5.2",
+    "gm": "^1.21.1",
+    "moment": "^2.11.2",
+    "request": "^2.69.0",
+    "rimraf": "^2.5.1"
+  }
+}
