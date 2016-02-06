@@ -61,6 +61,24 @@ himawari({
 
 ```
 
+### Command line interface
+
+There is also a command-line interface available if you install it with `-g`.
+
+```sh
+npm i -g himawari
+```
+
+This installs a program called `himawari` that can be used like so:
+
+```
+Usage: himawari [options]
+    --zoom, -z            The zoom level of the image. Can be 1-4. (default: 1)
+    --date, -d            The time of the picture desired. If you want to get the latest image, use 'latest'. (default: "latest")
+    --outfile, -o         The location to save the resulting image. (default: "himawari-{date}.jpg" in current directory)
+    --help, -h            show help
+```
+
 ### Acknowledgement
 [Michael Pote](https://github.com/MichaelPote) created a [Powershell Script](https://gist.github.com/MichaelPote/92fa6e65eacf26219022) that inspired this library.
 
