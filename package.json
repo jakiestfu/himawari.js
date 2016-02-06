@@ -1,7 +1,7 @@
 {
   "name": "himawari",
   "version": "1.0.0",
-  "description": "Download images from the Himawari-8 satellite",
+  "description": "Download real-time images of Earth from the Himawari-8 satellite",
   "main": "index.js",
   "scripts": {},
   "author": "Jacob Kelley <jakie8@gmail.com>",

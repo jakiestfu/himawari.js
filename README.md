@@ -64,5 +64,8 @@ himawari({
 ### Acknowledgement
 [Michael Pote](https://github.com/MichaelPote) created a [Powershell Script](https://gist.github.com/MichaelPote/92fa6e65eacf26219022) that inspired this library.
 
+## Example Image
+<img src="http://i.imgur.com/kJcfCoN.jpg">
+
 ## License
 MIT
