@@ -1,5 +1,5 @@
 <a href="https://github.com/jakiestfu/himawari.js">
-  <img src="http://i.imgur.com/ACD9g0q.png">
+  <img src="http://i.imgur.com/MUefuXm.png">
 </a>
 
 
@@ -20,22 +20,22 @@ himawari({
   /**
    * The zoom level of the image. Can be 1-4 (default: 1)
    * Each zoom level requires more images to be downloaded and therefore stitched
-   * together.
+   * together. Higher zoom yields a higher resolution image.
    * @type {Number}
    */
   zoom: 1,
 
   /**
-   * The time of the picture desired
-   * @type {Date}
+   * The time of the picture desired. If you want to get the latest image, use 'latest'
+   * @type {String|Date}
    */
-  date: new Date(),
+  date: 'latest', // Or new Date() or a date string
 
   /**
    * The location to save the resulting image
    * @type {String}
    */
-  outfile: '/Users/jkelley/Desktop/earth.jpg',
+  outfile: '/path/to/output/earth.jpg',
 
   /**
    * A success callback if the image downloads successfully
@@ -55,8 +55,14 @@ himawari({
    * @param  {Object} info Information about the download such as filepath, part, and total images
    */
   chunk: function (info) {
-    console.log(info.outfile + ': ' + info.part+'/'+info.total);
+    console.log(info.outfile + ': ' + info.part + '/' + info.total);
   }
 });
 
 ```
+
+### Acknowledgement
+[Michael Pote](https://github.com/MichaelPote) created a [Powershell Script](https://gist.github.com/MichaelPote/92fa6e65eacf26219022) that inspired this library.
+
+## License
+MIT
