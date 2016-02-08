@@ -6,10 +6,15 @@ var path    = require('path');
 var request = require('request');
 var rimraf  = require('rimraf');
 
+// The base URL for the Himawari-8 Satellite uploads
 var base_url = 'http://himawari8-dl.nict.go.jp/himawari8/img/D531106';
-var noop = function () {};
+
+// The number of times a tile will attempted to be downloaded if the download fails
+var retries = 5;
 
 module.exports = function (options) {
+
+  var noop = function () {};
 
   // Define some callback defaults
   options.error = typeof options.error == "function" ? options.error : noop;
@@ -25,11 +30,12 @@ module.exports = function (options) {
     // Define some image parameters
     var width = 550;
     var level = {
-      1: "4d",
-      2: "8d",
-      3: "16d",
-      4: "20d"
-    }[options.zoom] || "4d";
+      1: "1d",
+      2: "4d",
+      3: "8d",
+      4: "16d",
+      5: "20d"
+    }[options.zoom] || "1d";
     var blocks = parseInt(level.replace(/[a-zA-Z]/g, ''), 10);
 
     // Format our url paths
@@ -59,26 +65,36 @@ module.exports = function (options) {
 
     // Execute requests
     var count = 1;
-    async.eachLimit(tiles, 5, function (tile, cb) {
+    async.eachSeries(tiles, function (tile, cb) {
 
-      // Download images
-      var dest = path.join(tmp, tile.name);
-      var stream = fs.createWriteStream(dest);
-      stream.on('error', function (err) { return cb(err); });
-      stream.on('close', function() {
+      // Attempt to retry downloading image if fails
+      async.retry(retries, function (inner_cb) {
 
-        // Callback with info
-        options.chunk({
-          chunk: dest,
-          part: count,
-          total: tiles.length
+        // Download images
+        var dest = path.join(tmp, tile.name);
+        var stream = fs.createWriteStream(dest);
+        stream.on('error', function (err) { return inner_cb(err); });
+        stream.on('close', function() {
+
+          // Callback with info
+          options.chunk({
+            chunk: dest,
+            part: count,
+            total: tiles.length
+          });
+          count++;
+          return inner_cb();
         });
-        count++;
-        return cb();
-      });
 
-      // Pipe image
-      request(url_base + '_' + tile.name).pipe(stream);
+        // Pipe image
+        request({
+          method: 'GET',
+          uri: url_base + '_' + tile.name,
+          timeout: 30000 // 30 Seconds
+        }).pipe(stream);
+
+      }, cb);
+
     }, function (err) {
 
       if (err) { return options.error(err); }

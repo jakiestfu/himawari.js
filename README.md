@@ -18,7 +18,7 @@ var himawari = require('himawari');
 himawari({
 
   /**
-   * The zoom level of the image. Can be 1-4 (default: 1)
+   * The zoom level of the image. Can be 1-5 (default: 1)
    * Each zoom level requires more images to be downloaded and therefore stitched
    * together. Higher zoom yields a higher resolution image.
    * @type {Number}
@@ -61,7 +61,7 @@ himawari({
 
 ```
 
-### Command line interface
+### Command Line Interface
 
 There is also a command-line interface available if you install it with `-g`.
 
@@ -71,12 +71,12 @@ npm i -g himawari
 
 This installs a program called `himawari` that can be used like so:
 
-```
+```sh
 Usage: himawari [options]
-    --zoom, -z            The zoom level of the image. Can be 1-4. (default: 1)
-    --date, -d            The time of the picture desired. If you want to get the latest image, use 'latest'. (default: "latest")
-    --outfile, -o         The location to save the resulting image. (default: "himawari-{date}.jpg" in current directory)
-    --help, -h            show help
+    --zoom, -z            The zoom level of the image. Can be 1-5. (Default: `1`)
+    --date, -d            The time of the picture desired. If you want to get the latest image, use 'latest'. (Default: `"latest"`)
+    --outfile, -o         The location to save the resulting image. (Default: `"himawari-{date}.jpg"` in current directory)
+    --help, -h            Show help
 ```
 
 ### Acknowledgement

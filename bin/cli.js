@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var himawari = require('../');
+var fs = require('fs');
 var path = require('path');
 var cliclopts = require('cliclopts');
 var minimist = require('minimist');
@@ -9,7 +10,7 @@ var allowedOptions = [
   {
     name: 'zoom',
     abbr: 'z',
-    help: 'The zoom level of the image. Can be 1-4.',
+    help: 'The zoom level of the image. Can be 1-5.',
     default: 1
   },
   {
@@ -26,7 +27,7 @@ var allowedOptions = [
   {
     name: 'help',
     abbr: 'h',
-    help: 'show help',
+    help: 'Show help',
     boolean: true
   }
 ];
@@ -40,26 +41,32 @@ if (argv.help) {
   process.exit();
 }
 
+var defaultBasename = 'himawari' + '-' + argv.date + '.jpg';
 var basename;
 var dirname;
 var outfile;
 
 if (argv.outfile) {
   outfile = path.normalize(argv.outfile);
+
+  // Ensure we're saving to a file if a folder was provided
+  if (fs.existsSync(outfile) && fs.statSync(outfile).isDirectory()) {
+    outfile = path.join(outfile, defaultBasename);
+  }
+
   basename = path.basename(outfile);
   dirname = path.dirname(outfile);
 } else {
-  basename = 'himawari' + '-' + argv.date + '.jpg';
   dirname = process.cwd();
-  outfile = path.join(dirname, basename);
+  outfile = path.join(dirname, defaultBasename);
 }
 
 console.log('Creating ' + basename + ' in ' + dirname + ' ...');
 
 himawari({
-  zoom: argv.zoom || 1,
+  zoom: argv.zoom,
   outfile: outfile,
-  date: argv.date || 'latest',
+  date: argv.date,
   success: function () {
     console.log('Complete!');
     process.exit();
