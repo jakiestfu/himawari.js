@@ -8,9 +8,14 @@
   "license": "MIT",
   "dependencies": {
     "async": "^1.5.2",
+    "cliclopts": "^1.1.1",
     "gm": "^1.21.1",
+    "minimist": "^1.2.0",
     "moment": "^2.11.2",
     "request": "^2.69.0",
     "rimraf": "^2.5.1"
+  },
+  "bin": {
+    "himawari": "./bin/cli.js"
   }
 }
