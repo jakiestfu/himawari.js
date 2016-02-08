@@ -25,6 +25,12 @@ var allowedOptions = [
     help: 'The location to save the resulting image. (default: "himawari-{date}.jpg" in current directory)'
   },
   {
+    name: 'infrared',
+    abbr: 'i',
+    help: 'Capture picture on the infrared spectrum',
+    boolean: true
+  },
+  {
     name: 'help',
     abbr: 'h',
     help: 'Show help',
@@ -67,6 +73,7 @@ himawari({
   zoom: argv.zoom,
   outfile: outfile,
   date: argv.date,
+  infrared: argv.infrared,
   success: function () {
     console.log('Complete!');
     process.exit();

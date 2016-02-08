@@ -32,6 +32,12 @@ himawari({
   date: 'latest', // Or new Date() or a date string
 
   /**
+   * If set to true, an image on the infrared light spectrum will be generated
+   * @type {Boolean}
+   */
+  infrared: false,
+
+  /**
    * The location to save the resulting image
    * @type {String}
    */
@@ -76,14 +82,16 @@ Usage: himawari [options]
     --zoom, -z            The zoom level of the image. Can be 1-5. (Default: `1`)
     --date, -d            The time of the picture desired. If you want to get the latest image, use 'latest'. (Default: `"latest"`)
     --outfile, -o         The location to save the resulting image. (Default: `"himawari-{date}.jpg"` in current directory)
+    --infrared, -i        Capture picture on the infrared spectrum
     --help, -h            Show help
 ```
 
 ### Acknowledgement
 [Michael Pote](https://github.com/MichaelPote) created a [Powershell Script](https://gist.github.com/MichaelPote/92fa6e65eacf26219022) that inspired this library.
 
-### Example Image
+### Example Images
 <img src="http://i.imgur.com/kJcfCoN.jpg">
+<img src="http://i.imgur.com/376ZTvB.jpg" width="50%"><img src="http://i.imgur.com/XnAAjzy.jpg" width="50%">
 
 ## License
 MIT

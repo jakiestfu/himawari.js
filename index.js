@@ -6,13 +6,14 @@ var path    = require('path');
 var request = require('request');
 var rimraf  = require('rimraf');
 
-// The base URL for the Himawari-8 Satellite uploads
-var base_url = 'http://himawari8-dl.nict.go.jp/himawari8/img/D531106';
-
 // The number of times a tile will attempted to be downloaded if the download fails
 var retries = 5;
 
 module.exports = function (options) {
+
+  // The base URL for the Himawari-8 Satellite uploads
+  var base_url = 'http://himawari8-dl.nict.go.jp/himawari8/img/';
+  base_url += options.infrared ? 'INFRARED_FULL' : 'D531106';
 
   var noop = function () {};
 
@@ -21,7 +22,7 @@ module.exports = function (options) {
   options.success = typeof options.success == "function" ? options.success : noop;
   options.chunk = typeof options.chunk == "function" ? options.chunk : noop;
 
-  resolveDate(options.date, function (now) {
+  resolveDate(base_url, options.date, function (now) {
 
     // Normalize our date
     now.setMinutes(now.getMinutes() - (now.getMinutes() % 10));
@@ -68,7 +69,7 @@ module.exports = function (options) {
     async.eachSeries(tiles, function (tile, cb) {
 
       // Attempt to retry downloading image if fails
-      async.retry(retries, function (inner_cb) {
+      async.retry({times: retries, interval: 500}, function (inner_cb) {
 
         // Download images
         var dest = path.join(tmp, tile.name);
@@ -131,7 +132,7 @@ module.exports = function (options) {
  * @param  {String|Date}   input    The incoming date or the string "latest"
  * @param  {Function} callback The function to be called when date is resolved
  */
-function resolveDate (input, callback) {
+function resolveDate (base_url, input, callback) {
 
   var date = input;
 
