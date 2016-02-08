@@ -57,9 +57,9 @@ if (argv.outfile) {
 console.log('Creating ' + basename + ' in ' + dirname + ' ...');
 
 himawari({
-  zoom: argv.zoom || 1,
+  zoom: argv.zoom,
   outfile: outfile,
-  date: argv.date || 'latest',
+  date: argv.date,
   success: function () {
     console.log('Complete!');
     process.exit();
