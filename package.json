@@ -5,7 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/jakiestfu/himawari.js.git",
   "scripts": {
-    "hint": "./node_modules/jshint/bin/jshint index.js bin/cli.js"
+    "hint": "./node_modules/jshint/bin/jshint index.js bin/cli.js",
+    "deploy": "git push -f origin gh-pages"
   },
   "author": "Jacob Kelley <jakie8@gmail.com>",
   "license": "MIT",
