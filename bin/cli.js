@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-var himawari = require('../');
-var fs = require('fs');
-var path = require('path');
 var cliclopts = require('cliclopts');
-var minimist = require('minimist');
+var fs        = require('fs');
+var himawari  = require('../');
+var minimist  = require('minimist');
+var moment    = require('moment');
+var path      = require('path');
 
 var allowedOptions = [
   {
@@ -20,9 +21,21 @@ var allowedOptions = [
     default: 'latest'
   },
   {
+    name: 'debug',
+    abbr: 'l',
+    help: 'Turns on logging',
+    boolean: true
+  },
+  {
     name: 'outfile',
     abbr: 'o',
     help: 'The location to save the resulting image. (default: "himawari-{date}.jpg" in current directory)'
+  },
+  {
+    name: 'skipempty',
+    abbr: 's',
+    help: 'Don\'t download images that contain "No Image"',
+    boolean: true
   },
   {
     name: 'infrared',
@@ -46,8 +59,8 @@ if (argv.help) {
   opts.print();
   process.exit();
 }
-
-var defaultBasename = 'himawari' + '-' + argv.date + '.jpg';
+var date = moment.isDate(argv.date) ? argv.date : new Date(argv.date);
+var defaultBasename = 'himawari' + '-' + date.getTime() + '.jpg';
 var basename;
 var dirname;
 var outfile;
@@ -73,9 +86,11 @@ himawari({
   zoom: argv.zoom,
   outfile: outfile,
   date: argv.date,
+  debug: argv.debug,
   infrared: argv.infrared,
-  success: function () {
-    console.log('Complete!');
+  skipEmpty: argv.skipempty,
+  success: function (info) {
+    console.log('Complete', info);
     process.exit();
   },
   error: function (err) {

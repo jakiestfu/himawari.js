@@ -9,6 +9,6 @@ himawari({
     process.exit();
   },
   chunk: function (info) {
-    console.log('Saved', info.part + '/' + info.total);
+    console.log('COMPLETE', (info.part+'/'+info.total), '(' + ((info.part / info.total)*100).toFixed(0)+'%' + ')');
   }
 });

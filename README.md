@@ -44,6 +44,12 @@ himawari({
   outfile: '/path/to/output/earth.jpg',
 
   /**
+   * Skip empty images from being saved
+   * @type {Boolean}
+   */
+  skipEmpty: true,
+
+  /**
    * A success callback if the image downloads successfully
    * @type {Function}
    */
@@ -81,8 +87,10 @@ This installs a program called `himawari` that can be used like so:
 Usage: himawari [options]
     --zoom, -z            The zoom level of the image. Can be 1-5. (Default: `1`)
     --date, -d            The time of the picture desired. If you want to get the latest image, use 'latest'. (Default: `"latest"`)
+    --debug, -l           Turns on logging. (Default: `false`)
     --outfile, -o         The location to save the resulting image. (Default: `"himawari-{date}.jpg"` in current directory)
-    --infrared, -i        Capture picture on the infrared spectrum
+    --skipempty, -s       Skip saving images that contain no useful information (i.e. "No Image") (Default: `true`)
+    --infrared, -i        Capture picture on the infrared spectrum (Default: `false`)
     --help, -h            Show help
 ```
 
