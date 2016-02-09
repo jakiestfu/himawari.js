@@ -32,6 +32,12 @@ himawari({
   date: 'latest', // Or new Date() or a date string
 
   /**
+   * Turns on logging
+   * @type {Boolean}
+   */
+  debug: false,
+
+  /**
    * If set to true, an image on the infrared light spectrum will be generated
    * @type {Boolean}
    */
