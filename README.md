@@ -2,6 +2,11 @@
   <img src="http://i.imgur.com/MUefuXm.png">
 </a>
 
+> Download real-time images of Earth from the Himawari-8 satellite
+
+[![npm][npm-image]][npm-url]
+[npm-image]: https://img.shields.io/npm/v/himawari.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/himawari
 
 ## Getting Started
 
