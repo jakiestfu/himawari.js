@@ -6,21 +6,25 @@
       html, body {
         width: 100%;
         height: 100%;
-        overflow: hidden;
         text-align: center;
         background: #000;
         margin: 0;
         padding: 0;
       }
+      body {
+        overflow: auto;
+      }
       video {
         max-width: 100vw;
-        max-height: 100vh;
         pointer-events: none;
       }
       .social {
-        position: absolute;
+        position: fixed;
         top: 15px;
         left: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 8px 8px 4px 8px;
+        border-radius: 5px;
       }
       .video-link {
         display: block;
