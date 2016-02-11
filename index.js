@@ -6,7 +6,8 @@ var gm      = require('gm');
 var moment  = require('moment');
 var path    = require('path');
 var request = require('request');
-var mktemp = require('tmp');
+var mktemp  = require('tmp');
+var Promise = require('bluebird');
 
 // The number of times a tile will attempted to be downloaded if the download fails
 var retries = 5;
@@ -19,6 +20,7 @@ var emptyImages = {
 
 module.exports = function (userOptions) {
 
+  var dfd = Promise.defer();
   var options = extend({
     date: 'latest',
     debug: false,
@@ -38,6 +40,16 @@ module.exports = function (userOptions) {
       args.unshift('[Himawari]');
       console.log.apply(console, args);
     }
+  }
+
+  function triggerSuccess() {
+      dfd.resolve.call(null, arguments);
+      return options.success.call(null, arguments);
+  }
+
+  function triggerError() {
+      dfd.reject.call(null, arguments);
+      return options.error.call(null, arguments);
   }
 
   // The base URL for the Himawari-8 Satellite uploads
@@ -145,7 +157,7 @@ module.exports = function (userOptions) {
 
       if (err) {
         log('Error occurred...', err);
-        return options.error(err);
+        return triggerError(err);
       }
 
       // If we are skipping this image
@@ -155,7 +167,7 @@ module.exports = function (userOptions) {
         log('Cleaning temp files...');
 
         tmp.removeCallback();
-        return options.success('No image available');
+        return triggerSuccess('No image available');
       }
 
       if (tiles.length === 1) {
@@ -166,7 +178,7 @@ module.exports = function (userOptions) {
         log('Cleaning temp files...');
 
         tmp.removeCallback();
-        return options.success('File saved to ' + outfile);
+        return triggerSuccess('File saved to ' + outfile);
       }
 
       // New Graphics Magick handle
@@ -183,16 +195,17 @@ module.exports = function (userOptions) {
       log('Stitching images together...');
       magick.mosaic().write(outfile, function (err) {
 
-        if (err) { return options.error(err); }
+        if (err) { return triggerError(err); }
 
         // Clean
         log('Cleaning temp files...');
         tmp.removeCallback()
-        return options.success('File saved to ' + outfile);
+        return triggerSuccess('File saved to ' + outfile);
       });
     });
 
   });
+  return dfd.promise;
 };
 
 /**
