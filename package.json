@@ -18,7 +18,7 @@
     "minimist": "^1.2.0",
     "moment": "^2.11.2",
     "request": "^2.69.0",
-    "rimraf": "^2.5.1"
+    "tmp": "^0.0.28"
   },
   "bin": {
     "himawari": "./bin/cli.js"

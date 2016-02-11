@@ -6,7 +6,7 @@ var gm      = require('gm');
 var moment  = require('moment');
 var path    = require('path');
 var request = require('request');
-var rimraf  = require('rimraf');
+var mktemp = require('tmp');
 
 // The number of times a tile will attempted to be downloaded if the download fails
 var retries = 5;
@@ -88,11 +88,7 @@ module.exports = function (userOptions) {
     }
 
     // Create a temp directory
-    var tmp = './tmp';
-    if (!fs.existsSync(tmp))  {
-      log('Creating temp directory...');
-      fs.mkdirSync(tmp);
-    }
+    var tmp = mktemp.dirSync({unsafeCleanup: true})
 
     // Execute requests
     var count = 1;
@@ -106,7 +102,7 @@ module.exports = function (userOptions) {
 
         // Download images
         var uri = url_base + '_' + tile.name;
-        var dest = path.join(tmp, tile.name);
+        var dest = path.join(tmp.name, tile.name);
         var stream = fs.createWriteStream(dest);
         stream.on('error', function (err) { return inner_cb(err); });
         stream.on('finish', function () { return log('Tile downloaded', uri); });
@@ -157,22 +153,20 @@ module.exports = function (userOptions) {
         // Clean
         log('No image data, skipping...');
         log('Cleaning temp files...');
-        return rimraf(tmp, function (err) {
-          if (err) { return options.error(err); }
-          options.success('No image available');
-        });
+
+        tmp.removeCallback();
+        return options.success('No image available');
       }
 
       if (tiles.length === 1) {
         log('Skipping stiching...');
 
         var tile = tiles[0];
-        fs.renameSync(path.join(tmp, tile.name), outfile);
+        fs.renameSync(path.join(tmp.name, tile.name), outfile);
         log('Cleaning temp files...');
-        return rimraf(tmp, function (err) {
-          if (err) { return options.error(err); }
-          options.success('File saved to ' + outfile);
-        });
+
+        tmp.removeCallback();
+        return options.success('File saved to ' + outfile);
       }
 
       // New Graphics Magick handle
@@ -182,7 +176,7 @@ module.exports = function (userOptions) {
       for (var i = 0; i < tiles.length; i++) {
         var page = tiles[i];
         var coords = '+' + (page.x*width) + '+' + (page.y*width);
-        magick.in('-page', coords).in(path.join(tmp, page.name));
+        magick.in('-page', coords).in(path.join(tmp.name, page.name));
       }
 
       // Stitch together and write to output directory
@@ -193,10 +187,8 @@ module.exports = function (userOptions) {
 
         // Clean
         log('Cleaning temp files...');
-        rimraf(tmp, function (err) {
-          if (err) { return options.error(err); }
-          options.success('File saved to ' + outfile);
-        });
+        tmp.removeCallback()
+        return options.success('File saved to ' + outfile);
       });
     });
 
