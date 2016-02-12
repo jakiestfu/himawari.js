@@ -1,6 +1,6 @@
 {
   "name": "himawari",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Download real-time images of Earth from the Himawari-8 satellite",
   "main": "index.js",
   "repository": "https://github.com/jakiestfu/himawari.js.git",
