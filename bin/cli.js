@@ -59,7 +59,7 @@ if (argv.help) {
   opts.print();
   process.exit();
 }
-var date = moment.isDate(argv.date) ? argv.date : new Date(argv.date);
+var date = moment.isDate(argv.date) ? argv.date : new Date();
 var defaultBasename = 'himawari' + '-' + date.getTime() + '.jpg';
 var basename;
 var dirname;
