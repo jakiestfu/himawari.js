@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^1.5.2",
+    "bluebird": "^3.2.2",
     "cliclopts": "^1.1.1",
     "deep-extend": "^0.4.1",
     "gm": "^1.21.1",
