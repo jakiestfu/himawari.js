@@ -1,4 +1,4 @@
-var himawari = require('./index');
+var himawari = require('../index');
 
 himawari({
   zoom: 1,

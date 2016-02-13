@@ -10,12 +10,25 @@
 
 [Himawari 8](http://himawari8.nict.go.jp/) is a [geostationary](https://en.wikipedia.org/wiki/Geostationary_orbit) weather satellite deployed by the [Japan Meteorological Agency](http://www.jma.go.jp/jma/indexe.html). It takes photographs of Earth every 10 minutes.
 
+* [Getting Started](#getting-started)
+* [Usage](#usage)
+* [Command Line Interface](#command-line-interface)
+* [Acknowledgements](#acknowledgements)
+* [Example Images](#example-images)
+* [Example Scripts](#example-scripts)
+* [Licensing](#licensing)
+
 ## Getting Started
 
 ```sh
 brew install imagemagick
 brew install graphicsmagick
 npm i himawari
+```
+
+If you would like to generate videos, `ffmpeg` is also required.
+```sh
+brew install ffmpeg
 ```
 
 ## Usage
@@ -86,7 +99,7 @@ himawari({
 
 ```
 
-### Command Line Interface
+## Command Line Interface
 
 There is also a command-line interface available if you install it with `-g`.
 
@@ -107,12 +120,19 @@ Usage: himawari [options]
     --help, -h            Show help
 ```
 
-### Acknowledgement
-[Michael Pote](https://github.com/MichaelPote) created a [Powershell Script](https://gist.github.com/MichaelPote/92fa6e65eacf26219022) that inspired this library.
+## Acknowledgements
+* [Japan Meteorological Agency](http://www.jma.go.jp/)
+* [NICT](http://www.nict.go.jp/)
+* [Michael Pote](https://github.com/MichaelPote) created a [Powershell Script](https://gist.github.com/MichaelPote/92fa6e65eacf26219022) that inspired this library.
 
-### Example Images
+## Example Images
 <img src="http://i.imgur.com/kJcfCoN.jpg">
 <img src="http://i.imgur.com/376ZTvB.jpg" width="50%"><img src="http://i.imgur.com/XnAAjzy.jpg" width="50%">
 
-## License
+## Example Scripts
+There are two example files that showcase how Himawari.js can be used. The first, `basic.js`, is to simply be executed and will download the latest image of earth and save it to your Desktop.
+
+The second, `video.js`, will get a particular date (one where it starts off all black), and will decrement 10 minutes from that date until it has been 24 hours. The resulting images will be saved to a directory, and then piped to `ffmpeg` which will stitch the images together in a lovely video for you to oogle over.
+
+## Licensing
 MIT

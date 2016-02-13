@@ -173,16 +173,16 @@ module.exports = function (userOptions) {
         return options.success('No image available');
       }
 
-      if (tiles.length === 1) {
-        log('Skipping stiching...');
-
-        var tile = tiles[0];
-        fs.renameSync(path.join(tmp.name, tile.name), outfile);
-        log('Cleaning temp files...');
-
-        tmp.removeCallback();
-        return options.success('File saved to ' + outfile);
-      }
+      // if (tiles.length === 1) {
+      //   log('Skipping stiching...');
+      //
+      //   var tile = tiles[0];
+      //   fs.renameSync(path.join(tmp.name, tile.name), outfile);
+      //   log('Cleaning temp files...');
+      //
+      //   tmp.removeCallback();
+      //   return options.success('File saved to ' + outfile);
+      // }
 
       // New Graphics Magick handle
       var magick = gm();
