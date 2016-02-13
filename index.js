@@ -246,7 +246,7 @@ function resolveDate (base_url, input, callback) {
   // If provided "latest"
   else if (input === "latest") {
     var latest = base_url + '/latest.json';
-    log('Requestion latest date', latest);
+    log('Requesting latest date', latest);
     request({
       method: 'GET',
       uri: latest,
