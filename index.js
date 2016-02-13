@@ -137,7 +137,22 @@ module.exports = function (userOptions) {
           method: 'GET',
           uri: uri,
           timeout: 30000 // 30 Seconds
-        }).pipe(stream);
+        })
+        .on('response', function (res) {
+          if (res.statusCode !== 200) {
+            // Skip other tiles, jump immediately to the outer callback
+            log('Invalid status code');
+            return cb(res);
+          }
+        })
+        .on('error', function (err) {
+          // This will trigger our async.retry
+          log('Failed to request file');
+          return inner_cb(err);
+        })
+
+        // Pipe data to file stream
+        .pipe(stream);
 
       }, cb);
 

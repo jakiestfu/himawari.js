@@ -59,7 +59,9 @@ if (argv.help) {
   opts.print();
   process.exit();
 }
-var date = moment.isDate(argv.date) ? argv.date : new Date();
+
+var parsedDate = new Date(argv.date);
+var date = moment.isDate(parsedDate) ? parsedDate : new Date();
 var defaultBasename = 'himawari' + '-' + date.getTime() + '.jpg';
 var basename;
 var dirname;
@@ -77,6 +79,7 @@ if (argv.outfile) {
   dirname = path.dirname(outfile);
 } else {
   dirname = process.cwd();
+  basename = defaultBasename;
   outfile = path.join(dirname, defaultBasename);
 }
 
