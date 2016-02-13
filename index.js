@@ -88,7 +88,7 @@ module.exports = function (userOptions) {
     }
 
     // Create a temp directory
-    var tmp = mktemp.dirSync({unsafeCleanup: true})
+    var tmp = mktemp.dirSync({unsafeCleanup: true});
 
     // Execute requests
     var count = 1;
@@ -202,7 +202,7 @@ module.exports = function (userOptions) {
 
         // Clean
         log('Cleaning temp files...');
-        tmp.removeCallback()
+        tmp.removeCallback();
         return options.success('File saved to ' + outfile);
       });
     });
