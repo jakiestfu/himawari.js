@@ -41,10 +41,8 @@ module.exports = function (userOptions) {
   }
 
   // The base URL for the Himawari-8 Satellite uploads
-  var base_url = 'http://himawari8-dl.nict.go.jp/himawari8/img/';
-  base_url += options.infrared ? 'INFRARED_FULL' : 'D531106';
-
-  var noop = function () {};
+  var image_type = options.infrared ? 'INFRARED_FULL' : 'D531106';
+  var base_url = 'http://himawari8-dl.nict.go.jp/himawari8/img/' + image_type;
 
   log('Resolving date...');
   resolveDate(base_url, options.date, function (now) {
@@ -58,12 +56,22 @@ module.exports = function (userOptions) {
     // Define some image parameters
     var width = 550;
     var level = {
-      1: "1d",
-      2: "4d",
-      3: "8d",
-      4: "16d",
-      5: "20d"
-    }[options.zoom] || "1d";
+      INFRARED_FULL: {
+        1: "1d",
+        2: "4d",
+        3: "8d"
+      },
+      D531106: {
+        1: "1d",
+        2: "4d",
+        3: "8d",
+        4: "16d",
+        5: "20d"
+      }
+    }[image_type][options.zoom] || "1d";
+
+    log('Zoom level set to ' + level);
+
     var blocks = parseInt(level.replace(/[a-zA-Z]/g, ''), 10);
 
     // Format our url paths
@@ -142,13 +150,13 @@ module.exports = function (userOptions) {
           if (res.statusCode !== 200) {
             // Skip other tiles, jump immediately to the outer callback
             log('Invalid status code');
-            return cb(res);
+            return cb('Invalid status code', res);
           }
         })
         .on('error', function (err) {
           // This will trigger our async.retry
           log('Failed to request file');
-          return inner_cb(err);
+          return inner_cb('Failed to request file', err);
         })
 
         // Pipe data to file stream
@@ -230,7 +238,9 @@ function resolveDate (base_url, input, callback) {
 
   // If provided "latest"
   else if (input === "latest") {
-    request(base_url + '/latest.json', function (err, res) {
+    var latest = base_url + '/latest.json';
+    log('Requestion latest date', latest);
+    request(latest, function (err, res) {
       try { date = new Date(JSON.parse(res.body).date); }
       catch (e) { date = new Date(); }
       return callback(date);

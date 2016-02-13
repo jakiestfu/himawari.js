@@ -60,7 +60,8 @@ if (argv.help) {
   process.exit();
 }
 
-var parsedDate = new Date(argv.date);
+var parsedDate = new Date(argv.date || new Date().toString());
+if (parsedDate.toString().toLowerCase().indexOf('invalid') !== -1) { parsedDate = null; }
 var date = moment.isDate(parsedDate) ? parsedDate : new Date();
 var defaultBasename = 'himawari' + '-' + date.getTime() + '.jpg';
 var basename;

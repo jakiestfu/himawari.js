@@ -38,7 +38,7 @@ var himawari = require('himawari');
 himawari({
 
   /**
-   * The zoom level of the image. Can be 1-5 (default: 1)
+   * The zoom level of the image. Can be 1-5 for non-infrared, and 1-3 for infrared (default: 1)
    * Each zoom level requires more images to be downloaded and therefore stitched
    * together. Higher zoom yields a higher resolution image.
    * @type {Number}
@@ -58,7 +58,8 @@ himawari({
   debug: false,
 
   /**
-   * If set to true, an image on the infrared light spectrum will be generated
+   * If set to true, an image on the infrared light spectrum will be generated. Please note that
+   * infrared only supports zooms up to 3
    * @type {Boolean}
    */
   infrared: false,
