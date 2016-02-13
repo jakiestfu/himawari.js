@@ -21,6 +21,12 @@ var allowedOptions = [
     default: 'latest'
   },
   {
+    name: 'urls',
+    abbr: 'p',
+    help: 'Only print out the tile urls, do not download them',
+    boolean: true
+  },
+  {
     name: 'debug',
     abbr: 'l',
     help: 'Turns on logging',
@@ -83,7 +89,7 @@ if (argv.outfile) {
   outfile = path.join(dirname, defaultBasename);
 }
 
-console.log('Creating ' + basename + ' in ' + dirname + ' ...');
+console.error('Creating ' + basename + ' in ' + dirname + ' ...');
 
 himawari({
   zoom: argv.zoom,
@@ -92,8 +98,9 @@ himawari({
   debug: argv.debug,
   infrared: argv.infrared,
   skipEmpty: argv.skipempty,
+  printUrls: argv.urls,
   success: function (info) {
-    console.log('Complete', info);
+    console.error('Complete', info);
     process.exit();
   },
   error: function (err) {
@@ -101,6 +108,6 @@ himawari({
     process.exit(1);
   },
   chunk: function (info) {
-    console.log('Saved', info.part + '/' + info.total);
+    console.error('Saved', info.part + '/' + info.total);
   }
 });

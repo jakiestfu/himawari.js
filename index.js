@@ -46,7 +46,7 @@ module.exports = function (userOptions) {
 
   var noop = function () {};
 
-  log('Resolving date...');
+  log('Resolving date...', base_url, options.date);
   resolveDate(base_url, options.date, function (now) {
 
     log('Date resolved', now.toString());
@@ -86,6 +86,10 @@ module.exports = function (userOptions) {
         });
       }
     }
+
+    if (options.printUrls) return tiles.forEach(function (tile) {
+      console.log(url_base + '_' + tile.name)
+    })
 
     // Create a temp directory
     var tmp = mktemp.dirSync({unsafeCleanup: true});
