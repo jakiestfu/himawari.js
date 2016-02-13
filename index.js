@@ -45,7 +45,14 @@ module.exports = function (userOptions) {
   var base_url = 'http://himawari8-dl.nict.go.jp/himawari8/img/' + image_type;
 
   log('Resolving date...');
-  resolveDate(base_url, options.date, function (now) {
+  resolveDate(base_url, options.date, function (err, now) {
+    if (err) {
+      if (err.code === 'ETIMEDOUT') {
+        return console.error('Request to Himawari 8 server timed out. Please try again later.');
+      } else {
+        return console.error(err);
+      }
+    }
 
     log('Date resolved', now.toString());
 
@@ -234,19 +241,24 @@ function resolveDate (base_url, input, callback) {
   }
 
   // If provided a date object
-  if (moment.isDate(date)) { return callback(date); }
+  if (moment.isDate(date)) { return callback(null, date); }
 
   // If provided "latest"
   else if (input === "latest") {
     var latest = base_url + '/latest.json';
     log('Requestion latest date', latest);
-    request(latest, function (err, res) {
+    request({
+      method: 'GET',
+      uri: latest,
+      timeout: 30000
+    }, function (err, res) {
+      if (err) return callback(err);
       try { date = new Date(JSON.parse(res.body).date); }
       catch (e) { date = new Date(); }
-      return callback(date);
+      return callback(null, date);
     });
   }
 
   // Invalid string provided, return new Date
-  else { return callback(new Date()); }
+  else { return callback(null, new Date()); }
 }
