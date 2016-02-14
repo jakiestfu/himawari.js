@@ -11,7 +11,7 @@ var allowedOptions = [
   {
     name: 'zoom',
     abbr: 'z',
-    help: 'The zoom level of the image. Can be 1-5.',
+    help: 'The zoom level of the image. Can be 1-5 for visible light, 1-3 for infrared.',
     default: 1
   },
   {
@@ -58,6 +58,19 @@ if (argv.help) {
   console.log('Usage: himawari [options]');
   opts.print();
   process.exit();
+}
+
+var validForVIS = 1 <= argv.zoom && argv.zoom <= 5;
+var validForIR = 1 <= argv.zoom && argv.zoom <= 3;
+
+if (argv.infrared && !validForIR) {
+  console.error('Invalid zoom for infrared: ' + argv.zoom + '. Must be 1-3.');
+  process.exit(1);
+}
+
+if (!argv.infrared && !validForVIS) {
+  console.error('Invalid zoom: ' + argv.zoom + '. Must be 1-5.');
+  process.exit(1);
 }
 
 var parsedDate = new Date(argv.date || new Date().toString());
