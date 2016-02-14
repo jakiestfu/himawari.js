@@ -77,6 +77,12 @@ himawari({
   skipEmpty: true,
 
   /**
+   * The max duration in milliseconds before requests for images and data times out
+   * @type {Number}
+   */
+  timeout: 30000,
+
+  /**
    * A success callback if the image downloads successfully
    * @type {Function}
    */
@@ -117,6 +123,7 @@ Usage: himawari [options]
     --debug, -l           Turns on logging. (Default: `false`)
     --outfile, -o         The location to save the resulting image. (Default: `"himawari-{date}.jpg"` in current directory)
     --skipempty, -s       Skip saving images that contain no useful information (i.e. "No Image") (Default: `true`)
+    --timeout, -t         The max duration in milliseconds before requests for images and data times out (Default: `30000`)
     --infrared, -i        Capture picture on the infrared spectrum (Default: `false`)
     --help, -h            Show help
 ```

@@ -5,8 +5,9 @@
   "main": "index.js",
   "repository": "https://github.com/jakiestfu/himawari.js.git",
   "scripts": {
+    "deploy": "git push -f origin master:gh-pages",
     "hint": "jshint index.js bin/cli.js",
-    "deploy": "git push -f origin master:gh-pages"
+    "test": "mocha tests/test.js"
   },
   "author": "Jacob Kelley <jakie8@gmail.com>",
   "license": "MIT",
@@ -24,6 +25,9 @@
     "himawari": "./bin/cli.js"
   },
   "devDependencies": {
-    "jshint": "^2.9.1"
+    "assert": "^1.3.0",
+    "jshint": "^2.9.1",
+    "mocha": "^2.4.5",
+    "nock": "^7.0.2"
   }
 }

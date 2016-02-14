@@ -17,7 +17,7 @@ var emptyImages = {
   'b697574875d3b8eb5dd80e9b2bc9c749': 1
 };
 
-module.exports = function (userOptions) {
+var himawari = function (userOptions) {
 
   var options = extend({
     date: 'latest',
@@ -25,6 +25,7 @@ module.exports = function (userOptions) {
     infrared: false,
     outfile: null,
     skipEmpty: true,
+    timeout: 30000, // 30 seconds
     zoom: 1,
 
     success: function () {},
@@ -151,7 +152,7 @@ module.exports = function (userOptions) {
         request({
           method: 'GET',
           uri: uri,
-          timeout: 30000 // 30 Seconds
+          timeout: options.timeout // 30 Seconds
         })
         .on('response', function (res) {
           if (res.statusCode !== 200) {
@@ -236,7 +237,7 @@ function resolveDate (base_url, input, callback) {
   var date = input;
 
   // If provided a date string
-  if (typeof input == "string" && input !== "latest") {
+  if ((typeof input == "string" || typeof input == "number") && input !== "latest") {
     date = new Date(input);
   }
 
@@ -249,7 +250,7 @@ function resolveDate (base_url, input, callback) {
     request({
       method: 'GET',
       uri: latest,
-      timeout: 30000
+      timeout: options.timeout
     }, function (err, res) {
       if (err) return callback(err);
       try { date = new Date(JSON.parse(res.body).date); }
@@ -261,3 +262,6 @@ function resolveDate (base_url, input, callback) {
   // Invalid string provided, return new Date
   else { return callback(null, new Date()); }
 }
+
+himawari.resolveDate = resolveDate;
+module.exports = himawari;

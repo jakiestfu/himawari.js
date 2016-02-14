@@ -38,6 +38,11 @@ var allowedOptions = [
     boolean: true
   },
   {
+    name: 'timeout',
+    abbr: 't',
+    help: 'The max duration in milliseconds before requests for images and data times out'
+  },
+  {
     name: 'infrared',
     abbr: 'i',
     help: 'Capture picture on the infrared spectrum',
@@ -93,6 +98,7 @@ himawari({
   debug: argv.debug,
   infrared: argv.infrared,
   skipEmpty: argv.skipempty,
+  timeout: argv.timeout,
   success: function (info) {
     console.log('Complete', info);
     process.exit();
