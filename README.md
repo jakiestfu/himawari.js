@@ -113,12 +113,12 @@ This installs a program called `himawari` that can be used like so:
 
 ```sh
 Usage: himawari [options]
-    --zoom, -z            The zoom level of the image. Can be 1-5. (Default: `1`)
-    --date, -d            The time of the picture desired. If you want to get the latest image, use 'latest'. (Default: `"latest"`)
-    --debug, -l           Turns on logging. (Default: `false`)
-    --outfile, -o         The location to save the resulting image. (Default: `"himawari-{date}.jpg"` in current directory)
-    --skipempty, -s       Skip saving images that contain no useful information (i.e. "No Image") (Default: `true`)
-    --infrared, -i        Capture picture on the infrared spectrum (Default: `false`)
+    --zoom, -z            The zoom level of the image. Can be 1-5 for visible light, 1-3 for infrared. (default: 1)
+    --date, -d            The time of the picture desired. If you want to get the latest image, use "latest". (default: "latest")
+    --debug, -l           Turns on logging (default: false)
+    --outfile, -o         The location to save the resulting image. (default: "himawari-{date}.jpg" in current directory)
+    --skipempty, -s       Don't download images that contain "No Image" (default: true)
+    --infrared, -i        Capture picture on the infrared spectrum (default: false)
     --help, -h            Show help
 ```
 
