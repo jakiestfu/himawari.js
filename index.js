@@ -250,7 +250,7 @@ function resolveDate (base_url, input, callback) {
     request({
       method: 'GET',
       uri: latest,
-      timeout: options.timeout
+      timeout: 30000
     }, function (err, res) {
       if (err) return callback(err);
       try { date = new Date(JSON.parse(res.body).date); }
