@@ -24,7 +24,8 @@ var allowedOptions = [
     name: 'debug',
     abbr: 'l',
     help: 'Turns on logging',
-    boolean: true
+    boolean: true,
+    default: false
   },
   {
     name: 'outfile',
@@ -35,13 +36,15 @@ var allowedOptions = [
     name: 'skipempty',
     abbr: 's',
     help: 'Don\'t download images that contain "No Image"',
-    boolean: true
+    boolean: true,
+    default: true
   },
   {
     name: 'infrared',
     abbr: 'i',
     help: 'Capture picture on the infrared spectrum',
-    boolean: true
+    boolean: true,
+    default: false
   },
   {
     name: 'help',
