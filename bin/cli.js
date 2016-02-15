@@ -32,6 +32,12 @@ var allowedOptions = [
     help: 'The location to save the resulting image. (default: "himawari-{date}.jpg" in current directory)'
   },
   {
+    name: 'parallel',
+    abbr: 'p',
+    help: 'Parallelize downloads for increased speeds (can be CPU intensive)',
+    boolean: true
+  },
+  {
     name: 'skipempty',
     abbr: 's',
     help: 'Don\'t download images that contain "No Image"',
@@ -92,6 +98,7 @@ himawari({
   date: argv.date,
   debug: argv.debug,
   infrared: argv.infrared,
+  parallel: argv.parallel,
   skipEmpty: argv.skipempty,
   success: function (info) {
     console.log('Complete', info);

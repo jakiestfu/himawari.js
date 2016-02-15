@@ -72,6 +72,12 @@ himawari({
   outfile: '/path/to/output/earth.jpg',
 
   /**
+   * Set to true to parallelize tile downloads. Can be CPU intensive but decreases time to download images.
+   * @type {Boolean}
+   */
+  parallel: false,
+
+  /**
    * Skip empty images from being saved
    * @type {Boolean}
    */
@@ -117,6 +123,7 @@ Usage: himawari [options]
     --date, -d            The time of the picture desired. If you want to get the latest image, use 'latest'. (Default: `"latest"`)
     --debug, -l           Turns on logging. (Default: `false`)
     --outfile, -o         The location to save the resulting image. (Default: `"himawari-{date}.jpg"` in current directory)
+    --parallel, -p        Parallelize downloads for increased speeds (can be CPU intensive)
     --skipempty, -s       Skip saving images that contain no useful information (i.e. "No Image") (Default: `true`)
     --infrared, -i        Capture picture on the infrared spectrum (Default: `false`)
     --help, -h            Show help
