@@ -1,0 +1,25 @@
+[
+    {
+        "scope": "http://himawari8-dl.nict.go.jp:80",
+        "method": "GET",
+        "path": "/himawari8/img/D531106/latest.json",
+        "body": "",
+        "status": 200,
+        "response": {
+            "date": "Jan 1 2016 00:00:00 GMT-0800 (PST)",
+            "file": "PI_H08_20160214_0010_TRC_FLDK_R10_PGPFD.png"
+        },
+        "headers": {
+            "date": "Sun, 14 Feb 2016 00:43:39 GMT",
+            "server": "Apache",
+            "x-frame-options": "SAMEORIGIN",
+            "last-modified": "Sun, 14 Feb 2016 00:34:08 GMT",
+            "etag": "\"53-52bb00ef31550\"",
+            "accept-ranges": "bytes",
+            "content-length": "83",
+            "access-control-allow-origin": "http://himawari8.nict.go.jp",
+            "connection": "close",
+            "content-type": "application/json"
+        }
+    }
+]
