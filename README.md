@@ -90,6 +90,12 @@ himawari({
   timeout: 30000,
 
   /**
+   * If true, only prints the URLs of the images that would have been downloaded
+   * @type {Boolean}
+   */
+  urls: false,
+
+  /**
    * A success callback if the image downloads successfully
    * @type {Function}
    */
@@ -132,7 +138,9 @@ Usage: himawari [options]
     --parallel, -p        Parallelize downloads for increased speeds (can be CPU intensive)
     --skipempty, -s       Skip saving images that contain no useful information (i.e. "No Image") (Default: `true`)
     --timeout, -t         The max duration in milliseconds before requests for images and data times out (Default: `30000`)
+    --urls, -u            Only print the URLs of the images that would have been downloaded (Default: `false`)
     --infrared, -i        Capture picture on the infrared spectrum (Default: `false`)
+    --version, -v         Prints the version of the package
     --help, -h            Show help
 ```
 

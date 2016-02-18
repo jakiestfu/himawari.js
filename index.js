@@ -27,6 +27,7 @@ var himawari = function (userOptions) {
     parallel: false,
     skipEmpty: true,
     timeout: 30000, // 30 seconds
+    urls: false,
     zoom: 1,
 
     success: function () {},
@@ -151,6 +152,12 @@ var himawari = function (userOptions) {
 
         // Pipe image
         log('Requesting image...', uri);
+
+        if (options.urls) {
+          console.log(uri);
+          return inner_cb();
+        }
+
         request({
           method: 'GET',
           uri: uri,
@@ -181,6 +188,10 @@ var himawari = function (userOptions) {
         return options.error(err);
       }
 
+      if (options.urls) {
+        return options.success();
+      }
+
       // If we are skipping this image
       if (skipImage) {
         // Clean
@@ -190,17 +201,6 @@ var himawari = function (userOptions) {
         tmp.removeCallback();
         return options.success('No image available');
       }
-
-      // if (tiles.length === 1) {
-      //   log('Skipping stiching...');
-      //
-      //   var tile = tiles[0];
-      //   fs.renameSync(path.join(tmp.name, tile.name), outfile);
-      //   log('Cleaning temp files...');
-      //
-      //   tmp.removeCallback();
-      //   return options.success('File saved to ' + outfile);
-      // }
 
       // New Graphics Magick handle
       var magick = gm();

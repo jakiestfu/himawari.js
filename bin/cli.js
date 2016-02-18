@@ -6,6 +6,7 @@ var himawari  = require('../');
 var minimist  = require('minimist');
 var moment    = require('moment');
 var path      = require('path');
+var pkg       = require('../package.json');
 
 var allowedOptions = [
   {
@@ -49,9 +50,21 @@ var allowedOptions = [
     help: 'The max duration in milliseconds before requests for images and data times out'
   },
   {
+    name: 'urls',
+    abbr: 'u',
+    help: 'Only print the URLs of the images that would have been downloaded',
+    boolean: true
+  },
+  {
     name: 'infrared',
     abbr: 'i',
     help: 'Capture picture on the infrared spectrum',
+    boolean: true
+  },
+  {
+    name: 'version',
+    abbr: 'v',
+    help: 'Prints the version of the package',
     boolean: true
   },
   {
@@ -68,7 +81,12 @@ var argv = minimist(process.argv.slice(2), opts.options());
 if (argv.help) {
   console.log('Usage: himawari [options]');
   opts.print();
-  process.exit();
+  return process.exit();
+}
+
+if (argv.version) {
+  console.log(pkg.version);
+  return process.exit();
 }
 
 var parsedDate = new Date(argv.date || new Date().toString());
@@ -95,8 +113,6 @@ if (argv.outfile) {
   outfile = path.join(dirname, defaultBasename);
 }
 
-console.log('Creating ' + basename + ' in ' + dirname + ' ...');
-
 himawari({
   zoom: argv.zoom,
   outfile: outfile,
@@ -106,8 +122,11 @@ himawari({
   parallel: argv.parallel,
   skipEmpty: argv.skipempty,
   timeout: argv.timeout,
+  urls: argv.urls,
   success: function (info) {
-    console.log('Complete', info);
+    if (!argv.urls) {
+      console.log('Complete', info);
+    }
     process.exit();
   },
   error: function (err) {
@@ -115,6 +134,8 @@ himawari({
     process.exit(1);
   },
   chunk: function (info) {
-    console.log('Saved', info.part + '/' + info.total);
+    if (!argv.urls) {
+      console.log('Saved', info.part + '/' + info.total);
+    }
   }
 });
