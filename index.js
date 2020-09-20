@@ -45,7 +45,7 @@ var himawari = function (userOptions) {
 
   // The base URL for the Himawari-8 Satellite uploads
   var image_type = options.infrared ? 'INFRARED_FULL' : 'D531106';
-  var base_url = 'http://himawari8-dl.nict.go.jp/himawari8/img/' + image_type;
+  var base_url = 'https://himawari8-dl.nict.go.jp/himawari8/img/' + image_type;
 
   log('Resolving date...');
   resolveDate(base_url, options.date, function (err, now) {
