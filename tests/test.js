@@ -27,7 +27,7 @@ describe('Date Resolver', function () {
 
   nockBack('latest.json', function (nockDone) {
     it('should resolve a date from the string "latest"', function (cb) {
-      himawari.resolveDate("http://himawari8-dl.nict.go.jp/himawari8/img/D531106", "latest", function (err, now) {
+      himawari.resolveDate("https://himawari8.nict.go.jp/img/D531106", "latest", function (err, now) {
         assert.equal(now.getTime(), 1451635200000);
         cb();
         nockDone();

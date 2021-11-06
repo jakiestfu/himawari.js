@@ -1,6 +1,6 @@
 [
     {
-        "scope": "http://himawari8-dl.nict.go.jp:80",
+        "scope": "https://himawari8.nict.go.jp/img:80",
         "method": "GET",
         "path": "/himawari8/img/D531106/latest.json",
         "body": "",
@@ -17,7 +17,7 @@
             "etag": "\"53-52bb00ef31550\"",
             "accept-ranges": "bytes",
             "content-length": "83",
-            "access-control-allow-origin": "http://himawari8.nict.go.jp",
+            "access-control-allow-origin": "https://himawari8.nict.go.jp",
             "connection": "close",
             "content-type": "application/json"
         }

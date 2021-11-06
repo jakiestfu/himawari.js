@@ -9,7 +9,7 @@
 [npm-image]: https://img.shields.io/npm/v/himawari.svg?style=flat-square
 [npm-url]: https://www.npmjs.com/package/himawari
 
-[Himawari 8](http://himawari8.nict.go.jp/) is a [geostationary](https://en.wikipedia.org/wiki/Geostationary_orbit) weather satellite deployed by the [Japan Meteorological Agency](http://www.jma.go.jp/jma/indexe.html). It takes photographs of Earth every 10 minutes.
+[Himawari 8](https://himawari8.nict.go.jp/) is a [geostationary](https://en.wikipedia.org/wiki/Geostationary_orbit) weather satellite deployed by the [Japan Meteorological Agency](http://www.jma.go.jp/jma/indexe.html). It takes photographs of Earth every 10 minutes.
 
 * [Getting Started](#getting-started)
 * [Usage](#usage)
